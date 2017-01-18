@@ -1,0 +1,61 @@
+
+@import '_bootstrap.min';
+@import '_bootstrap-theme.min';
+
+
+#field {
+	width: 50%;
+	height: auto;
+	margin: 10px auto;
+	background: #d8d8ca;
+	// background-image: url("../tasklist.jpg");
+	border-radius: 10px;
+	// float: !important none;
+
+}
+.todo {
+text-align: center;
+}
+
+.input-group {
+	margin: 0 auto;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	li {
+		list-style-type: none
+	}
+
+}
+
+.task-add {
+	padding-top: 10px;
+		.form-control{
+			width: auto;
+			margin-bottom: 20px;
+			}
+	}
+
+.input-group-btn {
+	display: block;
+	width: 300px;
+	.btn {
+	
+		min-width: 50px;
+		
+	}
+	.btn-default {
+	    color: #0074cc;
+	    background-color: white;
+	    border-color: #0074cc;
+	    background-image: none;
+	}
+	.btn-default:hover {
+	    color: white;
+	    background-color: #0074cc;
+	    border-color: #0074cc;
+		transition: 0.5s;
+	}
+}
