@@ -5,6 +5,7 @@
 	<title>TODO</title>
 	<link rel="stylesheet" href="css/style.css">
 	<script src="js/script.js"></script>
+
 </head>
 <body>
 	<div class="container">
@@ -12,39 +13,53 @@
 			<div id="field">
 				<div id="todo" class="todo">
 					<h1>ToDo</h1>
-					<div class="archive">
+					<div id="archive" class="archive">
 						<span>0</span> of <span>0</span> remaining [<a href="#"> archive </a>]
 					</div>
 				</div>
-				<div class="input-group">
+				<div class="input-group"> 
 					<ul id="newTask" class="newTask">
 						<li>
-							<input type="checkbox" name="task" value="a1" checked>111111
+							<input type="checkbox" name="task" value="a1" >111111
 						</li>
 						<li>
-							<input type="checkbox" name="task" value="a2" checked>111111
+							<input type="checkbox" name="task" value="a2" >111111
 						</li>
 						<li>
-							<input type="checkbox" name="task" value="a3" checked>111111
+							<input type="checkbox" name="task" value="a3" >111111
 						</li>
 						<li>
-							<input type="checkbox" name="task" value="a4" checked>111111
+							<input type="checkbox" name="task" value="a4" >111111
 						</li>
 					</ul>
 					<div class="task-add">
-						<input type="text" class="form-control">
+						<input type="text" id="input" class="form-control" placeholder="add new todo" value="">
 						<span class="input-group-btn">
-							<button id="btn" class="btn btn-default" type="button">Add</button>
-							<button id="btn" class="btn btn-default" type="button">Delete</button>
+							<button id="btn-add" class="btn btn-default" type="button">Add</button>
+							<button id="btn-del" class="btn btn-default" type="button">Delete</button>
 						</span>
 					</div>
 				</div>
+
+
 				<!-- /input-group -->
 			</div>
 			<!-- /.col-lg-6 -->
 		</div>
 		<!-- /.row -->
 	</div>
+
+
+
+<!-- 	<table id="t">
+  <tr><td>1</td><td><input type="checkbox"></td><td>asdfasdf</td></tr>
+  <tr><td>2</td><td><input type="checkbox"></td><td>wsfdvwdf</td></tr>
+  <tr><td>3</td><td><input type="checkbox"></td><td>ojsdhsff</td></tr>
+  <tr><td>4</td><td><input type="checkbox"></td><td>qadifoqf</td></tr>
+  <tr><td>5</td><td><input type="checkbox"></td><td>poqwiefh</td></tr>
+</table>
+<input type="button" value="Show" onclick="show()">
+<input type="button" value="Hide" onclick="hide()"> -->
 </body>
 
 </html>
