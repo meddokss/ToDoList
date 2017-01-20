@@ -1,18 +1,26 @@
-
 @import '_bootstrap.min';
 @import '_bootstrap-theme.min';
 
 
 #field {
-	width: 50%;
+	width: 400px;
 	height: auto;
-	margin: 10px auto;
-	background: #d8d8ca;
-	// background-image: url("../tasklist.jpg");
+	margin: 15px auto;
+	margin-top: 200px;
+	background: #616d84;
 	border-radius: 10px;
+	h1 {
+		color: white;
+		padding-top: 20px;
+	}
 }
+
 .todo {
-text-align: center;
+	text-align: center;
+
+	.archive {
+		margin: 0;
+	}
 }
 
 .input-group {
@@ -22,38 +30,68 @@ text-align: center;
 ul {
 	margin: 0;
 	padding: 0;
+	padding-left: 10px;
 	li {
-		list-style-type: none
+		color: white;
+		max-width: 300px;
+		height: auto;
+		margin: 5px 0;
+		list-style-type: none;
+		border-radius: 5px;
+		height: 30px;
+		font-size: 16px;
+		line-height: 30px;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
-
+	input[type="radio"],
+	input[type="checkbox"] {
+		margin: 0 15px 0;
+		line-height: normal;
+		vertical-align: middle;
+	}
+	li:hover {
+		background: #ddd;
+		border-radius: 5px;
+		-webkit-box-shadow: 10px 10px 90px -20px rgba(0, 0, 0, 0.48);
+		-moz-box-shadow: 10px 10px 90px -20px rgba(0, 0, 0, 0.48);
+		box-shadow: 10px 10px 90px -20px rgba(0, 0, 0, 0.48);
+		transition: 1s;
+	}
 }
 
 .task-add {
+	width: 100%;
 	padding-top: 10px;
-		.form-control{
-			width: auto;
-			margin-bottom: 20px;
-			}
+	.form-control {
+		width: auto;
+		margin-bottom: 20px;
 	}
+}
 
 .input-group-btn {
 	display: block;
 	width: 300px;
 	.btn {
-	
 		min-width: 50px;
-		
 	}
 	.btn-default {
-	    color: #0074cc;
-	    background-color: white;
-	    border-color: #0074cc;
-	    background-image: none;
+		color: white;
+		background-color: #0074cc;
+		border-color: #0045aa;
+		background-image: none;
 	}
-	.btn-default:hover {
-	    color: white;
-	    background-color: #0074cc;
-	    border-color: #0074cc;
+	.add:hover {
+		color: white;
+		background-color: #33cc66;
+		border-color: #33cc66;
+		transition: 0.5s;
+	}
+	.del:hover {
+		outline-style: none;
+		color: white;
+		background-color: #cc0033;
+		border-color: #cc0033;
 		transition: 0.5s;
 	}
 }

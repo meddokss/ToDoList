@@ -5951,26 +5951,58 @@ button.close {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1); }
 
 #field {
-  width: 50%;
+  width: 400px;
   height: auto;
-  margin: 10px auto;
-  background: #d8d8ca;
+  margin: 15px auto;
+  margin-top: 200px;
+  background: #616d84;
   -webkit-border-radius: 10px;
   border-radius: 10px; }
+  #field h1 {
+    color: white;
+    padding-top: 20px; }
 
 .todo {
   text-align: center; }
+  .todo .archive {
+    margin: 0; }
 
 .input-group {
   margin: 0 auto; }
 
 ul {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  padding-left: 10px; }
   ul li {
-    list-style-type: none; }
+    color: white;
+    max-width: 300px;
+    height: auto;
+    margin: 5px 0;
+    list-style-type: none;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    height: 30px;
+    font-size: 16px;
+    line-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  ul input[type="radio"],
+  ul input[type="checkbox"] {
+    margin: 0 15px 0;
+    line-height: normal;
+    vertical-align: middle; }
+  ul li:hover {
+    background: #ddd;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 10px 10px 90px -20px rgba(0, 0, 0, 0.48);
+    box-shadow: 10px 10px 90px -20px rgba(0, 0, 0, 0.48);
+    -webkit-transition: 1s;
+    transition: 1s; }
 
 .task-add {
+  width: 100%;
   padding-top: 10px; }
   .task-add .form-control {
     width: auto;
@@ -5982,13 +6014,20 @@ ul {
   .input-group-btn .btn {
     min-width: 50px; }
   .input-group-btn .btn-default {
-    color: #0074cc;
-    background-color: white;
-    border-color: #0074cc;
-    background-image: none; }
-  .input-group-btn .btn-default:hover {
     color: white;
     background-color: #0074cc;
-    border-color: #0074cc;
+    border-color: #0045aa;
+    background-image: none; }
+  .input-group-btn .add:hover {
+    color: white;
+    background-color: #33cc66;
+    border-color: #33cc66;
+    -webkit-transition: 0.5s;
+    transition: 0.5s; }
+  .input-group-btn .del:hover {
+    outline-style: none;
+    color: white;
+    background-color: #cc0033;
+    border-color: #cc0033;
     -webkit-transition: 0.5s;
     transition: 0.5s; }
