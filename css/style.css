@@ -5982,16 +5982,16 @@ ul {
     list-style-type: none;
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    height: 30px;
+    height: 31px;
     font-size: 16px;
-    line-height: 30px;
-    overflow: hidden;
-    text-overflow: ellipsis; }
+    line-height: 31px; }
   ul input[type="radio"],
   ul input[type="checkbox"] {
     margin: 0 15px 0;
     line-height: normal;
-    vertical-align: middle; }
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis; }
   ul li:hover {
     background: #ddd;
     -webkit-border-radius: 5px;
@@ -6005,29 +6005,40 @@ ul {
   width: 100%;
   padding-top: 10px; }
   .task-add .form-control {
-    width: auto;
+    width: 245px;
     margin-bottom: 20px; }
 
 .input-group-btn {
   display: block;
   width: 300px; }
   .input-group-btn .btn {
-    min-width: 50px; }
+    min-width: 55px; }
   .input-group-btn .btn-default {
     color: white;
     background-color: #0074cc;
     border-color: #0045aa;
-    background-image: none; }
+    background-image: none;
+    float: right !important; }
   .input-group-btn .add:hover {
     color: white;
     background-color: #33cc66;
     border-color: #33cc66;
     -webkit-transition: 0.5s;
     transition: 0.5s; }
-  .input-group-btn .del:hover {
-    outline-style: none;
-    color: white;
-    background-color: #cc0033;
-    border-color: #cc0033;
-    -webkit-transition: 0.5s;
-    transition: 0.5s; }
+
+.dell {
+  color: white;
+  background-color: #0074cc;
+  border-color: #0045aa;
+  background-image: none;
+  float: right !important;
+  padding: 5px 6px; }
+
+.dell:hover {
+  float: right;
+  outline-style: none;
+  color: white;
+  background-color: #cc0033;
+  border-color: #cc0033;
+  -webkit-transition: 0.5s;
+  transition: 0.5s; }

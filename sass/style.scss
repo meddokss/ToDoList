@@ -38,17 +38,20 @@ ul {
 		margin: 5px 0;
 		list-style-type: none;
 		border-radius: 5px;
-		height: 30px;
+		height: 31px;
 		font-size: 16px;
-		line-height: 30px;
-		overflow: hidden;
-		text-overflow: ellipsis;
+		line-height: 31px;
+		// overflow: hidden;
+		// text-overflow: clip;
 	}
 	input[type="radio"],
 	input[type="checkbox"] {
 		margin: 0 15px 0;
 		line-height: normal;
 		vertical-align: middle;
+		// width: 200px;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	li:hover {
 		background: #ddd;
@@ -64,7 +67,7 @@ ul {
 	width: 100%;
 	padding-top: 10px;
 	.form-control {
-		width: auto;
+		width: 245px;
 		margin-bottom: 20px;
 	}
 }
@@ -73,13 +76,15 @@ ul {
 	display: block;
 	width: 300px;
 	.btn {
-		min-width: 50px;
+		min-width: 55px;
+
 	}
 	.btn-default {
 		color: white;
 		background-color: #0074cc;
 		border-color: #0045aa;
 		background-image: none;
+		float: right !important; 
 	}
 	.add:hover {
 		color: white;
@@ -87,11 +92,24 @@ ul {
 		border-color: #33cc66;
 		transition: 0.5s;
 	}
-	.del:hover {
+	
+}
+
+
+	.dell {
+		color: white;
+		background-color: #0074cc;
+		border-color: #0045aa;
+		background-image: none;
+		float: right !important; 
+		 padding: 5px 6px;
+	}
+
+	.dell:hover {
+		float: right;
 		outline-style: none;
 		color: white;
 		background-color: #cc0033;
 		border-color: #cc0033;
 		transition: 0.5s;
 	}
-}
