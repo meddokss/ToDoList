@@ -22,8 +22,12 @@ window.onload = function(){
 		 
 		function add() {
 			var task = document.getElementById('input').value;
+			console.log(task.length);
 			if (task === ""){
 					alert("Write a new task");
+				}
+			else if (task.length >= 30){
+					alert("Too length. max 30 symbols");
 				}
 			else {
 			var todos = get_todos();
@@ -53,7 +57,7 @@ window.onload = function(){
 
 			var html='<ul id="yes">';
 			for (var i = 0; i < todos.length; i++) {
-				html += '<li><input type="checkbox" name="task" value="task">' + ' ' + todos[i] + ' ' + alldate + '<button class="dell btn" id="' + i + '">Delete</button></li>';
+				html += '<li><input type="checkbox" name="task" value="task">' + ' ' +todos[i] + ' ' + alldate + '<button class="dell btn" id="' + i + '">Delete</button></li>';
 			};
 			html += '</ul>';
 			document.getElementById('newTask').innerHTML = html;

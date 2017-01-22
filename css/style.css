@@ -5951,24 +5951,23 @@ button.close {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1); }
 
 #field {
-  width: 400px;
+  width: 600px;
   height: auto;
   margin: 15px auto;
   margin-top: 200px;
   background: #616d84;
   -webkit-border-radius: 10px;
-  border-radius: 10px; }
+  border-radius: 10px;
+  color: white; }
   #field h1 {
     color: white;
     padding-top: 20px; }
 
 .todo {
-  text-align: center; }
+  text-align: center;
+  width: 100%; }
   .todo .archive {
     margin: 0; }
-
-.input-group {
-  margin: 0 auto; }
 
 ul {
   margin: 0;
@@ -5976,7 +5975,7 @@ ul {
   padding-left: 10px; }
   ul li {
     color: white;
-    max-width: 300px;
+    max-width: 500px;
     height: auto;
     margin: 5px 0;
     list-style-type: none;
@@ -6001,25 +6000,26 @@ ul {
     -webkit-transition: 1s;
     transition: 1s; }
 
-.task-add {
-  width: 100%;
-  padding-top: 10px; }
-  .task-add .form-control {
-    width: 245px;
-    margin-bottom: 20px; }
-
-.input-group-btn {
-  display: block;
-  width: 300px; }
-  .input-group-btn .btn {
+.input-group {
+  width: 500px;
+  margin: 0 auto; }
+  .input-group .task-add {
+    width: 300px;
+    padding-top: 10px;
+    margin: 0 auto; }
+    .input-group .task-add .form-control {
+      width: 245px;
+      margin-bottom: 20px;
+      height: 32px; }
+  .input-group .btn {
     min-width: 55px; }
-  .input-group-btn .btn-default {
+  .input-group .btn-default {
     color: white;
     background-color: #0074cc;
     border-color: #0045aa;
     background-image: none;
     float: right !important; }
-  .input-group-btn .add:hover {
+  .input-group .add:hover {
     color: white;
     background-color: #33cc66;
     border-color: #33cc66;
