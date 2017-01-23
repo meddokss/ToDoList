@@ -1,6 +1,4 @@
 # ToDoList
-https://github.com/meddokss/ToDoList -- ссылка на гитхаб
-
 https://meddokss.github.io/ToDoList/ -- ссылка онлайн
 
 Не получилось :<br>
