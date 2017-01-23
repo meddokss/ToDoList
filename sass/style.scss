@@ -16,7 +16,7 @@
 	}
 }
 
-.todo {w
+.todo {
 	text-align: center;
 	width:100%;
 
@@ -41,15 +41,13 @@ ul {
 		height: 31px;
 		font-size: 16px;
 		line-height: 31px;
-		// overflow: hidden;
-		// text-overflow: clip;
+
 	}
 	input[type="radio"],
 	input[type="checkbox"] {
 		margin: 0 15px 0;
 		line-height: normal;
 		vertical-align: middle;
-		// width: 200px;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
@@ -69,21 +67,16 @@ ul {
 	margin: 0 auto;
 	.task-add {
 	width: 300px;
-
 	padding-top: 10px;
 	margin: 0 auto;
-	
-	.form-control {
-		width:245px;
-		margin-bottom: 20px;
-		height: 32px;
+		.form-control {
+			width:245px;
+			margin-bottom: 20px;
+			height: 32px;
+		}
 	}
-}
-
-
 	.btn {
 		min-width: 55px;
-		// h50
 	}
 	.btn-default {
 		color: white;
@@ -101,14 +94,13 @@ ul {
 	
 }
 
-
 	.dell {
 		color: white;
 		background-color: #0074cc;
 		border-color: #0045aa;
 		background-image: none;
 		float: right !important; 
-		 padding: 5px 6px;
+		padding: 5px 6px;
 	}
 
 	.dell:hover {
@@ -117,5 +109,22 @@ ul {
 		color: white;
 		background-color: #cc0033;
 		border-color: #cc0033;
+		transition: 0.5s;
+	}
+
+	.checked {
+		text-decoration:line-through;
+		color:grey;
+		background :#66cc66;
+	}
+
+	.arch {
+		color: white;
+		background-color: #33cc66;
+		border-color: #33cc66;
+		height: 20px;
+		line-height: 14px;
+		margin: 2px;
+		padding: 3px;
 		transition: 0.5s;
 	}

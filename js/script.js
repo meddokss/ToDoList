@@ -1,267 +1,124 @@
-window.onload = function(){
-
+window.onload = function() {
+	// localStorage.clear();
 	let btnAdd = document.getElementById('add'),
-		archive = document.getElementById('archive'),
 		newTask = document.getElementById('newTask'),
 		fieldCounter = document.getElementById('counter'),
 		counterAll = document.getElementById('counter-all');
-		
-		archive.addEventListener("click", archiveTask, false); 
-		newTask.addEventListener("click", checkBoxes, false);
-		btnAdd.addEventListener('click', add);
-		show();
-		
-		function get_todos() {
-			var todos = new Array;
-			var todos_str = localStorage.getItem('todo');
-			if (todos_str !== null) {
-				todos = JSON.parse(todos_str); 
-			}
-			return todos;
+
+
+	archive.addEventListener("click", archiveTask);
+	newTask.addEventListener('click', checkBoxes);
+	btnAdd.addEventListener('click', addTask);
+	showToDoList();
+
+	function getLocalTask() {
+		let todos = new Array;
+		let todos_str = localStorage.getItem('todo');
+		if (todos_str !== null) {
+			todos = JSON.parse(todos_str);
 		}
-		 
-		function add() {
-			var task = document.getElementById('input').value;
-			console.log(task.length);
-			if (task === ""){
-					alert("Write a new task");
-				}
-			else if (task.length >= 30){
-					alert("Too length. max 30 symbols");
-				}
-			else {
-			var todos = get_todos();
-			todos.push(task);
+		return todos;
+	}
+
+	function addTask() {
+		let task = document.getElementById('input').value,
+			spaceCheck,
+			date,
+			dateZero,
+			dateView;
+
+		date = new Date();
+		dateZero = date => date < 10 ? date = "0" + date : date;
+		dateView = ' ' +dateZero(date.getHours()) + ':' + dateZero(date.getMinutes()) + ':' + dateZero(date.getSeconds()) + '';
+		spaceCheck = /^[\s]+$/;
+		if (task === "" || spaceCheck.test(task)) {
+			alert("Write a task");
+		} else if (task.length >= 30) {
+			alert("Too length. max 30 symbols");
+		} else {
+			let todos = getLocalTask();
+			todos.push(task+dateView);
 			localStorage.setItem('todo', JSON.stringify(todos));
-		 	show();
-		 	return false;
-		 }
+			showToDoList();
+			return false;
 		}
-		 
-		function remove() {
-			var id = this.getAttribute('id');
-			var todos = get_todos();
-			todos.splice(id, 1);
-			localStorage.setItem('todo', JSON.stringify(todos));
-			 show();
-			 return false;
-		}
-		 
+	}
+	
 
+	function removeTask() {
+		let id = this.getAttribute('id');
+		let todos = getLocalTask();
+		todos.splice(id, 1);
+		localStorage.setItem('todo', JSON.stringify(todos));
+		showToDoList();
+		return false;
+	}
 
-		function show() {
-			let date = new Date();
-			let niceDate = date => date < 10 ? date = "0" + date : date;
-			let alldate = niceDate(date.getHours()) + ':' + niceDate(date.getMinutes()) + ':' + niceDate(date.getSeconds()) + '';
-			var todos = get_todos();
+	function showToDoList() {
+		let todos = getLocalTask();
+		let taskView = '<ul id="addTask">';
+		for (let i = 0; i < todos.length; i++) {
+			taskView += '<li id="r"><input type="checkbox" name="task" value="task" id="check' + i + '">' + ' ' + todos[i] + ' ' +'<button class="dell btn" id="' + i + '">Delete</button></li>';
+		};
 
-			var html='<ul id="yes">';
-			for (var i = 0; i < todos.length; i++) {
-				html += '<li><input type="checkbox" name="task" value="task">' + ' ' +todos[i] + ' ' + alldate + '<button class="dell btn" id="' + i + '">Delete</button></li>';
-			};
-			html += '</ul>';
-			document.getElementById('newTask').innerHTML = html;
+		taskView += '</ul>';
+		document.getElementById('newTask').innerHTML = taskView;
 
-			var buttons = document.getElementsByClassName('dell');
-			for (var i = 0; i < buttons.length; i++) {
-				buttons[i].addEventListener('click', remove);
-			}
-
-			list = document.getElementById('yes').childElementCount;
-			counterAll.innerHTML = list;
+		let buttons = document.getElementsByClassName('dell');
+		for (let i = 0; i < buttons.length; i++) {
+			buttons[i].addEventListener('click', removeTask);
 		}
 
+		list = document.getElementById('addTask').childElementCount;
+		counterAll.innerHTML = list;
+		checkId();
+		checkBoxes();
+	}
 
 
-////////////////////////////////////
-	function checkBoxes() {
-		var inputElems = document.getElementsByTagName("input"),
-		allTask = newTask.getElementsByTagName('li'),
-		count = 0;
-		for (var i=0; i<inputElems.length; i++) {
-			if (inputElems[i].checked == true){
-				count++;
-				allTask[i].style.textDecoration = 'line-through';
-				allTask[i].style.color = 'grey';
-				allTask[i].style.background = '#66cc66';
+	function checkId() {
+		let check = document.querySelectorAll('[type="checkbox"]');
+
+		for (let z = 0, checkid; checkid = check[z]; z++) {
+			if (localStorage[checkid.id] !== undefined) {
+				checkid.checked = +localStorage[checkid.id];
+
 			}
-			else {
-				allTask[i].style.textDecoration = 'none';
-				allTask[i].style.color = '';
-				allTask[i].style.background = '';
+			checkid.onchange = function() {
+				localStorage[this.id] = +this.checked;
 			}
-			fieldCounter.innerHTML = count;
 		}
 	}
 
-////////////////////////////////////
-// рабочая
+	function checkBoxes() {
+		let inputElems = document.getElementsByTagName("input"),
+			allTask = newTask.getElementsByTagName('li');
+			var count = 0;
+		for (let i = 0; i < inputElems.length; i++) {
+			if (inputElems[i].checked == true) {
+				count = 1 + i;
+				allTask[i].classList.add("checked");
+			} else {
+				allTask[i].classList.remove("checked");
+			}
+			fieldCounter.innerHTML = count;
+		}
+
+	}
+// fieldCounter.innerHTML = count;
 	function archiveTask() {
 		let archiveNeed = document.getElementsByTagName('input');
 		let array = Array.prototype.slice.call(archiveNeed);
-		for (var i=0; i<array.length; i++) {
-			if (array[i].checked == true){
+		for (let i = 0; i < array.length; i++) {
+			if (array[i].checked == true) {
 				let liItem = array[i].parentNode;
 				let parentItem = liItem.parentNode
 				parentItem.removeChild(liItem);
 			}
 		}
 		list = document.getElementById('newTask').childElementCount;
-			counterAll.innerHTML = list;
+		counterAll.innerHTML = list;
 	}
-///////////////////////////////
-show();
-
-
+	showToDoList();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Работает по отдельности
-
-// newTask.onclick = function checkboxes() {
-// 		var inputElems = document.getElementsByTagName("input"),
-// 		count = 0;
-
-// 		for (var i=0; i<inputElems.length; i++) {
-// 			if (inputElems[i].type == "checkbox" && inputElems[i].checked == true){
-// 				count++;
-// 			}
-// 			fieldCounter.innerHTML = count;
-// 		}
-// 	}
-
-
-// Работает
-	// newTask.onclick = function crosse() {
-	// 	let test = document.getElementsByTagName('input'),
-	// 		vse = newTask.getElementsByTagName('li'),
-	// 		li = Array.prototype.slice.call(test);
-			
-	// 	for (let i = 0; i < li.length; i++) {
-	// 		if (li[i].checked) {
-	// 			vse[i].style.textDecoration = 'line-through';
-	// 			vse[i].style.color = 'grey';
-	// 			vse[i].style.background = '#66cc66';
-	// 		}
-	// 		else {
-	// 			vse[i].style.textDecoration = 'none';
-	// 			vse[i].style.color = '';
-	// 			vse[i].style.background = '';
-	// 		}
-	// 	}
-	// }
-
-
-
-// btnDel.onclick = function deleteTask() {
-// 		let List = document.getElementById('newTask');
-// 		List.removeChild(List.lastElementChild);
-// 	}
-
-
-
-// archive.onclick = function archiveTask() {
-// 		let archiveNeed = document.getElementsByTagName('input');
-// 		let array = Array.prototype.slice.call(nodeList);
-// 		for (var i=0; i<array.length; i++) {
-// 			if (array[i].checked == true){
-// 				let liItem = array[i].parentNode;
-// 				let parentItem = liItem.parentNode
-// 				parentItem.removeChild(liItem);
-// 			}
-// 		}
-// 		list = document.getElementById('newTask').childElementCount;
-// 			counterAll.innerHTML = list;
-// 	}
-
-// 	btnDel.onclick = function deleteTask() {
-// 		var inputElems = document.getElementsByTagName("input");
-// 		for (var i=0; i<inputElems.length; i++) {
-// 			if (inputElems[i].checked == true){
-// 				let tr = inputElems[i].parentNode;
-// 				let parent = tr.parentNode
-// 				parent.removeChild(tr);
-// 			}
-// 		}
-// 		list = document.getElementById('newTask').childElementCount;
-// 			counterAll.innerHTML = list;
-// 	}
-
-
-
-// 		archive.onclick = function archiveTask() {
-// 		let nodeList = document.getElementsByTagName('input');
-// 		let array = Array.prototype.slice.call(nodeList);
-// 		for (let i = 0; i < array.length; i++) {
-// 			if (array[i].checked) {
-// 				let tr = array[i].parentNode;
-// 				let parent = tr.parentNode
-// 				parent.removeChild(tr);
-// 			}
-// 		}
-// 	}

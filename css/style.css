@@ -6042,3 +6042,19 @@ ul {
   border-color: #cc0033;
   -webkit-transition: 0.5s;
   transition: 0.5s; }
+
+.checked {
+  text-decoration: line-through;
+  color: grey;
+  background: #66cc66; }
+
+.arch {
+  color: white;
+  background-color: #33cc66;
+  border-color: #33cc66;
+  height: 20px;
+  line-height: 14px;
+  margin: 2px;
+  padding: 3px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s; }
