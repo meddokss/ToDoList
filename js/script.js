@@ -1,14 +1,14 @@
 window.onload = function() {
 	// localStorage.clear();
 	let btnAdd = document.getElementById('add'),
-		newTask = document.getElementById('newTask'),
+		addTask = document.getElementById('addTask'),
 		fieldCounter = document.getElementById('counter'),
 		counterAll = document.getElementById('counter-all');
 
 
 	archive.addEventListener("click", archiveTask);
-	newTask.addEventListener('click', checkBoxes);
-	btnAdd.addEventListener('click', addTask);
+	addTask.addEventListener('click', checkBoxes);
+	btnAdd.addEventListener('click', newTask);
 	showToDoList();
 
 	function getLocalTask() {
@@ -20,7 +20,8 @@ window.onload = function() {
 		return todos;
 	}
 
-	function addTask() {
+	function newTask() {
+
 		let task = document.getElementById('input').value,
 			spaceCheck,
 			date,
@@ -44,7 +45,6 @@ window.onload = function() {
 		}
 	}
 	
-
 	function removeTask() {
 		let id = this.getAttribute('id');
 		let todos = getLocalTask();
@@ -54,18 +54,36 @@ window.onload = function() {
 		return false;
 	}
 
+
 	function showToDoList() {
 		let todos = getLocalTask();
-		let taskView = '<ul id="addTask">';
+			document.getElementById("addTask").innerHTML = "";
+
 		for (let i = 0; i < todos.length; i++) {
-			taskView += '<li id="r"><input type="checkbox" name="task" value="task" id="check' + i + '">' + ' ' + todos[i] + ' ' +'<button class="dell btn" id="' + i + '">Delete</button></li>';
+			let li = document.createElement("li");
+		
+			var inputValue = todos[i];	
+			var textarea = document.createTextNode(inputValue);
+			let inputAppend = document.createElement('input');
+			inputAppend.id = 'check' + i;
+			inputAppend.type = 'checkbox';
+
+			let btnDelete = document.createElement('button');
+			let deletet = document.createTextNode('Delete');
+				btnDelete.id = i;
+				btnDelete.className = 'dell btn';
+				btnDelete.appendChild(deletet);
+
+			li.id = 'r';
+			li.appendChild(btnDelete);
+			li.appendChild(inputAppend);
+			li.appendChild(textarea);
+			document.getElementById("addTask").appendChild(li);
 		};
-
-		taskView += '</ul>';
-		document.getElementById('newTask').innerHTML = taskView;
-
+		document.getElementById("input").value = "";
+		
 		let buttons = document.getElementsByClassName('dell');
-		for (let i = 0; i < buttons.length; i++) {
+			for (let i = 0; i < buttons.length; i++) {
 			buttons[i].addEventListener('click', removeTask);
 		}
 
@@ -78,11 +96,9 @@ window.onload = function() {
 
 	function checkId() {
 		let check = document.querySelectorAll('[type="checkbox"]');
-
 		for (let z = 0, checkid; checkid = check[z]; z++) {
 			if (localStorage[checkid.id] !== undefined) {
 				checkid.checked = +localStorage[checkid.id];
-
 			}
 			checkid.onchange = function() {
 				localStorage[this.id] = +this.checked;
@@ -91,21 +107,30 @@ window.onload = function() {
 	}
 
 	function checkBoxes() {
-		let inputElems = document.getElementsByTagName("input"),
-			allTask = newTask.getElementsByTagName('li');
-			var count = 0;
-		for (let i = 0; i < inputElems.length; i++) {
-			if (inputElems[i].checked == true) {
-				count = 1 + i;
-				allTask[i].classList.add("checked");
-			} else {
-				allTask[i].classList.remove("checked");
+		let checkbox = document.querySelectorAll('[type="checkbox"]');
+		let count = 0;
+		fieldCounter.innerHTML = count;
+		for (let i = 0, checkid; checkid = checkbox[i]; i++){
+			if (checkid.checked === true ) {
+				let liAddClass = document.querySelectorAll("li");
+				liAddClass[i].className = "checked";
+				if(count<=0 && checkid.checked !== true){
+					count = 0;
+				}
+				else {count +=1;}
+				fieldCounter.innerHTML = count;
 			}
-			fieldCounter.innerHTML = count;
+			else {
+				let liAddClass = document.querySelectorAll("li");
+				liAddClass[i].className = "";
+				if(count<0 && checkid.checked == false){
+					count -= 1;
+				}
+			}
 		}
-
 	}
-// fieldCounter.innerHTML = count;
+
+
 	function archiveTask() {
 		let archiveNeed = document.getElementsByTagName('input');
 		let array = Array.prototype.slice.call(archiveNeed);
@@ -116,7 +141,7 @@ window.onload = function() {
 				parentItem.removeChild(liItem);
 			}
 		}
-		list = document.getElementById('newTask').childElementCount;
+		list = document.getElementById('addTask').childElementCount;
 		counterAll.innerHTML = list;
 	}
 	showToDoList();
