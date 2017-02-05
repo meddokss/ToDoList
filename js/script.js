@@ -1,68 +1,66 @@
 window.onload = function() {
-	// localStorage.clear();
+
 	let btnAdd = document.getElementById('add'),
 		addTask = document.getElementById('addTask'),
 		fieldCounter = document.getElementById('counter'),
 		counterAll = document.getElementById('counter-all');
 
+		archive.addEventListener("click", archiveTask);
+		addTask.addEventListener('click', checkBoxes);
+		btnAdd.addEventListener('click', newTask);
+		showToDoList();
 
-	archive.addEventListener("click", archiveTask);
-	addTask.addEventListener('click', checkBoxes);
-	btnAdd.addEventListener('click', newTask);
-	showToDoList();
 
 	function getLocalTask() {
 		let todos = new Array;
-		let todos_str = localStorage.getItem('todo');
-		if (todos_str !== null) {
-			todos = JSON.parse(todos_str);
+		let todosStr = localStorage.getItem('todo');
+		if (todosStr !== null) {
+			todos = JSON.parse(todosStr);
 		}
 		return todos;
-	}
+	};
 
 	function newTask() {
 
 		let task = document.getElementById('input').value,
-			spaceCheck,
+			ifOnlyspace,
 			date,
-			dateZero,
 			dateView;
 
 		date = new Date();
-		dateZero = date => date < 10 ? date = "0" + date : date;
-		dateView = ' ' +dateZero(date.getHours()) + ':' + dateZero(date.getMinutes()) + ':' + dateZero(date.getSeconds()) + '';
-		spaceCheck = /^[\s]+$/;
-		if (task === "" || spaceCheck.test(task)) {
+		dateView = date.toLocaleTimeString();
+		ifOnlyspace = /^[\s]+$/;
+		if (task === "" || ifOnlyspace.test(task)) {
 			alert("Write a task");
 		} else if (task.length >= 30) {
 			alert("Too length. max 30 symbols");
 		} else {
 			let todos = getLocalTask();
-			todos.push(task+dateView);
+			todos.push(task +' '+ dateView);
 			localStorage.setItem('todo', JSON.stringify(todos));
 			showToDoList();
 			return false;
 		}
-	}
-	
+	};
+
 	function removeTask() {
 		let id = this.getAttribute('id');
+		let inputId = this.nextElementSibling.id;
 		let todos = getLocalTask();
 		todos.splice(id, 1);
 		localStorage.setItem('todo', JSON.stringify(todos));
+		localStorage.removeItem(inputId);
 		showToDoList();
 		return false;
-	}
-
+	};
 
 	function showToDoList() {
 		let todos = getLocalTask();
-			document.getElementById("addTask").innerHTML = "";
+		document.getElementById("addTask").innerHTML = "";
 
 		for (let i = 0; i < todos.length; i++) {
 			let li = document.createElement("li");
-		
-			var inputValue = todos[i];	
+			var inputValue = todos[i];
 			var textarea = document.createTextNode(inputValue);
 			let inputAppend = document.createElement('input');
 			inputAppend.id = 'check' + i;
@@ -81,7 +79,7 @@ window.onload = function() {
 			document.getElementById("addTask").appendChild(li);
 		};
 		document.getElementById("input").value = "";
-		
+
 		let buttons = document.getElementsByClassName('dell');
 			for (let i = 0; i < buttons.length; i++) {
 			buttons[i].addEventListener('click', removeTask);
@@ -89,32 +87,32 @@ window.onload = function() {
 
 		list = document.getElementById('addTask').childElementCount;
 		counterAll.innerHTML = list;
-		checkId();
+		checkedTask();
 		checkBoxes();
-	}
+	};
 
-
-	function checkId() {
+	function checkedTask() {
 		let check = document.querySelectorAll('[type="checkbox"]');
-		for (let z = 0, checkid; checkid = check[z]; z++) {
-			if (localStorage[checkid.id] !== undefined) {
-				checkid.checked = +localStorage[checkid.id];
+		for (let z = 0, checkId; checkId = check[z]; z++) {
+			if (localStorage[checkId.id] !== undefined) {
+				checkId.checked = +localStorage[checkId.id];
 			}
-			checkid.onchange = function() {
+			checkId.onchange = function() {
 				localStorage[this.id] = +this.checked;
 			}
 		}
-	}
+
+	};
 
 	function checkBoxes() {
 		let checkbox = document.querySelectorAll('[type="checkbox"]');
 		let count = 0;
 		fieldCounter.innerHTML = count;
-		for (let i = 0, checkid; checkid = checkbox[i]; i++){
-			if (checkid.checked === true ) {
+		for (let i = 0, checkId; checkId = checkbox[i]; i++){
+			if (checkId.checked === true ) {
 				let liAddClass = document.querySelectorAll("li");
 				liAddClass[i].className = "checked";
-				if(count<=0 && checkid.checked !== true){
+				if(count<=0 && checkId.checked !== true){
 					count = 0;
 				}
 				else {count +=1;}
@@ -123,13 +121,12 @@ window.onload = function() {
 			else {
 				let liAddClass = document.querySelectorAll("li");
 				liAddClass[i].className = "";
-				if(count<0 && checkid.checked == false){
+				if(count<0 && checkId.checked == false){
 					count -= 1;
 				}
 			}
 		}
-	}
-
+	};
 
 	function archiveTask() {
 		let archiveNeed = document.getElementsByTagName('input');
@@ -137,13 +134,21 @@ window.onload = function() {
 		for (let i = 0; i < array.length; i++) {
 			if (array[i].checked == true) {
 				let liItem = array[i].parentNode;
+				console.log(liItem);
 				let parentItem = liItem.parentNode
 				parentItem.removeChild(liItem);
 			}
 		}
 		list = document.getElementById('addTask').childElementCount;
 		counterAll.innerHTML = list;
-	}
+	};
 	showToDoList();
-}
+	document.onkeyup = function (e) {
+		e = e || window.event;
+		if (e.keyCode === 13) {
+			newTask();
+		}
+		return false;
+	};
+};
 
