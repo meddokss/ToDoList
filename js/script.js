@@ -1,5 +1,4 @@
 window.onload = function() {
-
 	let btnAdd = document.getElementById('add'),
 		addTask = document.getElementById('addTask'),
 		fieldCounter = document.getElementById('counter'),

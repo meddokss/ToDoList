@@ -1,5 +1,5 @@
-@import '_bootstrap.min';
-@import '_bootstrap-theme.min';
+@import './node_modules/bootstrap/dist/css/bootstrap.min';
+@import './node_modules/bootstrap/dist/css/bootstrap-theme.min';
 
 
 #field {
@@ -83,7 +83,7 @@ ul {
 		background-color: #0074cc;
 		border-color: #0045aa;
 		background-image: none;
-		float: right !important; 
+		float: right !important;
 	}
 	.add:hover {
 		color: white;
@@ -91,7 +91,7 @@ ul {
 		border-color: #33cc66;
 		transition: 0.5s;
 	}
-	
+
 }
 
 	.dell {
@@ -99,7 +99,7 @@ ul {
 		background-color: #0074cc;
 		border-color: #0045aa;
 		background-image: none;
-		float: right !important; 
+		float: right !important;
 		padding: 5px 6px;
 	}
 
