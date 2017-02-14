@@ -3,15 +3,13 @@ window.onload = function() {
 		addTask = document.getElementById('addTask'),
 		fieldCounter = document.getElementById('counter'),
 		counterAll = document.getElementById('counter-all');
-
 		archive.addEventListener("click", archiveTask);
 		addTask.addEventListener('click', checkBoxes);
 		btnAdd.addEventListener('click', newTask);
 		showToDoList();
 
-
 	function getLocalTask() {
-		let todos = new Array;
+		let todos = [];
 		let todosStr = localStorage.getItem('todo');
 		if (todosStr !== null) {
 			todos = JSON.parse(todosStr);
@@ -21,14 +19,11 @@ window.onload = function() {
 
 	function newTask() {
 
-		let task = document.getElementById('input').value,
-			ifOnlyspace,
-			date,
-			dateView;
+		let task = document.getElementById('input').value;
+		let ifOnlyspace = /^[\s]+$/;
+		let date = new Date();
+		let dateView = date.toLocaleTimeString();
 
-		date = new Date();
-		dateView = date.toLocaleTimeString();
-		ifOnlyspace = /^[\s]+$/;
 		if (task === "" || ifOnlyspace.test(task)) {
 			alert("Write a task");
 		} else if (task.length >= 30) {
@@ -43,10 +38,11 @@ window.onload = function() {
 	};
 
 	function removeTask() {
-		let id = this.getAttribute('id');
+		let buttonDeleteId = this.getAttribute('id');
 		let inputId = this.nextElementSibling.id;
+		console.log(inputId);
 		let todos = getLocalTask();
-		todos.splice(id, 1);
+		todos.splice(buttonDeleteId, 1);
 		localStorage.setItem('todo', JSON.stringify(todos));
 		localStorage.removeItem(inputId);
 		showToDoList();
@@ -55,36 +51,39 @@ window.onload = function() {
 
 	function showToDoList() {
 		let todos = getLocalTask();
+		let newToDo, inputValue, textarea, newInputElem, addBtnDelete, btnDeleteText = '';
+		let count = 0;
+
 		document.getElementById("addTask").innerHTML = "";
 
-		for (let i = 0; i < todos.length; i++) {
-			let li = document.createElement("li");
-			var inputValue = todos[i];
-			var textarea = document.createTextNode(inputValue);
-			let inputAppend = document.createElement('input');
-			inputAppend.id = 'check' + i;
-			inputAppend.type = 'checkbox';
-
-			let btnDelete = document.createElement('button');
-			let deletet = document.createTextNode('Delete');
-				btnDelete.id = i;
-				btnDelete.className = 'dell btn';
-				btnDelete.appendChild(deletet);
-
-			li.id = 'r';
-			li.appendChild(btnDelete);
-			li.appendChild(inputAppend);
-			li.appendChild(textarea);
-			document.getElementById("addTask").appendChild(li);
+		for (let value of todos) {
+			newToDo = document.createElement("li");
+			inputValue = value;
+			textarea = document.createTextNode(inputValue);
+			newInputElem = document.createElement('input');
+			newInputElem.id = 'check' + count;
+			newInputElem.type = 'checkbox';
+			addBtnDelete = document.createElement('button');
+			btnDeleteText = document.createTextNode('Delete');
+				addBtnDelete.id = count;
+				addBtnDelete.className = 'dell btn';
+				addBtnDelete.appendChild(btnDeleteText);
+			newToDo.id = 'r';
+			newToDo.appendChild(addBtnDelete);
+			newToDo.appendChild(newInputElem);
+			newToDo.appendChild(textarea);
+			document.getElementById("addTask").appendChild(newToDo);
+			count ++;
 		};
+
 		document.getElementById("input").value = "";
 
 		let buttons = document.getElementsByClassName('dell');
-			for (let i = 0; i < buttons.length; i++) {
-			buttons[i].addEventListener('click', removeTask);
+			for (let deleteButton of buttons) {
+			deleteButton.addEventListener('click', removeTask);
 		}
 
-		list = document.getElementById('addTask').childElementCount;
+		let list = document.getElementById('addTask').childElementCount;
 		counterAll.innerHTML = list;
 		checkedTask();
 		checkBoxes();
@@ -92,7 +91,9 @@ window.onload = function() {
 
 	function checkedTask() {
 		let check = document.querySelectorAll('[type="checkbox"]');
-		for (let z = 0, checkId; checkId = check[z]; z++) {
+		let checkId;
+		for (let value of check) {
+			checkId = value;
 			if (localStorage[checkId.id] !== undefined) {
 				checkId.checked = +localStorage[checkId.id];
 			}
@@ -100,14 +101,17 @@ window.onload = function() {
 				localStorage[this.id] = +this.checked;
 			}
 		}
-
 	};
 
 	function checkBoxes() {
 		let checkbox = document.querySelectorAll('[type="checkbox"]');
 		let count = 0;
+		let i = 0;
+		let checkId;
 		fieldCounter.innerHTML = count;
-		for (let i = 0, checkId; checkId = checkbox[i]; i++){
+
+		for (let value of checkbox){
+			checkId = value;
 			if (checkId.checked === true ) {
 				let liAddClass = document.querySelectorAll("li");
 				liAddClass[i].className = "checked";
@@ -124,21 +128,24 @@ window.onload = function() {
 					count -= 1;
 				}
 			}
+			i++;
 		}
 	};
 
 	function archiveTask() {
 		let archiveNeed = document.getElementsByTagName('input');
 		let array = Array.prototype.slice.call(archiveNeed);
-		for (let i = 0; i < array.length; i++) {
-			if (array[i].checked == true) {
-				let liItem = array[i].parentNode;
-				console.log(liItem);
-				let parentItem = liItem.parentNode
+		let liItem, parentItem;
+
+		for (let i of array) {
+			if (i.checked == true) {
+				liItem = i.parentNode;
+				parentItem = liItem.parentNode
 				parentItem.removeChild(liItem);
 			}
 		}
-		list = document.getElementById('addTask').childElementCount;
+
+		let list = document.getElementById('addTask').childElementCount;
 		counterAll.innerHTML = list;
 	};
 	showToDoList();
