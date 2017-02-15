@@ -46,6 +46,7 @@ window.onload = function(){
 
 		showToDoList() {
 			let takeTodos = this.getLocalTask();
+			console.log(takeTodos);
 			let newToDo, inputValue, textarea, newInputElem, addBtnDelete, btnDeleteText = '';
 			let count = 0;
 
